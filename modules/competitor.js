@@ -1,6 +1,6 @@
-var eventEmitter = require ('events');
-var eventsConfig = require ('./config');
-var util = require ('util');
+const eventEmitter = require ('events'),
+eventsConfig = require ('./config'),
+util = require ('util');
 
 var log = []; //log array to print into html file
 
@@ -15,7 +15,7 @@ Competitor.prototype.printCompetitor = function (){
     log.push(`Competitor:  ${this.name} <br>
     sportType: ${this.sportType} <br>
     Medals: ${this.medals}<br>`);
-}
+};
 
 util.inherits(Competitor, eventEmitter);
 
@@ -53,7 +53,7 @@ Competitor.prototype.setMedal = function(num) {
 
 Competitor.prototype.printlog = function (){
     return log.toString().split(',').join("<br>");
-}
+};
 
 module.exports = Competitor;
 
