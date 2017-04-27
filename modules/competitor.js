@@ -4,6 +4,7 @@ util = require ('util');
 
 var log = []; //log array to print into html file
 
+//Competitor Constructor
 function Competitor(name, sportType, medals=0) {
     this.name = name;
     this.sportType = sportType;
@@ -11,6 +12,7 @@ function Competitor(name, sportType, medals=0) {
     this.printCompetitor();
 }
 
+//Print the Competitor Details
 Competitor.prototype.printCompetitor = function (){
     log.push(`Competitor:  ${this.name} <br>
     sportType: ${this.sportType} <br>
@@ -19,13 +21,16 @@ Competitor.prototype.printCompetitor = function (){
 
 util.inherits(Competitor, eventEmitter);
 
+//Add Medal to Competitor
 Competitor.prototype.addMedal = function () {
     this.medals++;
     this.emit(eventsConfig.events.MEDAL_INCREASE,`Medal added to ${this.name}. Current Medals: ${this.medals}`);
     log.push (`Medal Added to ${this.name}. Current Medals for ${this.name}: ${this.medals}<br>`);
 };
 
+//Remove Medal From Competitor
 Competitor.prototype.removeMedal = function (){
+    //Check if Competitor Has one Medal or more before removing
     if (this.medals>0){
         this.medals--;
         this.emit(eventsConfig.events.MEDAL_DECREASE,`Medal was Removed from ${this.name}. Current Medals: ${this.medals}`);
@@ -37,6 +42,7 @@ Competitor.prototype.removeMedal = function (){
     }
 };
 
+//Set medal for Competitor
 Competitor.prototype.setMedal = function(num) {
     if (num>=0){
         this.medals=num;
@@ -51,6 +57,7 @@ Competitor.prototype.setMedal = function(num) {
     }
 };
 
+//Print Log
 Competitor.prototype.printlog = function (){
     return log.toString().split(',').join("<br>");
 };

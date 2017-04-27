@@ -1,15 +1,17 @@
 'use strict';
-const http = require ('http'),
-express= require ('express'),
-eventsConfig = require('./modules/config'),
-Competitor = require ("./modules/competitor");
-
-var app = express();
+const   http = require ('http'),
+        express= require ('express'),
+        app = express(),
+        port = process.env.PORT || 8080,
+        eventsConfig = require('./modules/config'),
+        Competitor = require ("./modules/competitor");
 
 app.get(`/`, function(req, res) {
+    //create Competitors instances
     let competitor_one = new Competitor ("Michael Phelps","400m Mixed");
     let competitor_two = new Competitor ("Ian Thorpe","100m Freestyle");
 
+    //Events listeners
     competitor_one.on(eventsConfig.events.MEDAL_INCREASE, function (data) {
         console.log(data);
     });
@@ -43,7 +45,7 @@ app.get(`/`, function(req, res) {
     res.send('<h1>Success</h1> '+competitor_one.printlog());
 });
 
-http.createServer(app).listen(8080);//create Server
+http.createServer(app).listen(port);//create Server
 
 
 /**
